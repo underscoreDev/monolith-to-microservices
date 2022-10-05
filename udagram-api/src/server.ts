@@ -1,10 +1,7 @@
 import cors from "cors";
-import express, { Request, Response } from "express";
 import { sequelize } from "./sequelize";
-
+import express, { Request, Response } from "express";
 import { IndexRouter } from "./controllers/v0/index.router";
-
-import { config } from "./config/config";
 import { V0_FEED_MODELS, V0_USER_MODELS } from "./controllers/v0/model.index";
 
 export const dbConnect = async () => {
@@ -45,6 +42,6 @@ app.get("/", async (req: Request, res: Response) => {
 // Start the Server
 app.listen(port, async () => {
   await dbConnect();
-  console.log(`server running ${config.url}`);
+  console.log(`server running ${port}`);
   console.log(`press CTRL+C to stop server`);
 });
