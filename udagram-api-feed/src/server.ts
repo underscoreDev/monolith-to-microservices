@@ -2,11 +2,10 @@ import cors from "cors";
 import { sequelize } from "./sequelize";
 import express, { Request, Response } from "express";
 import { IndexRouter } from "./controllers/v0/index.router";
-import { V0_FEED_MODELS, V0_USER_MODELS } from "./controllers/v0/model.index";
+import { V0_FEED_MODELS } from "./controllers/v0/model.index";
 
 export const dbConnect = async () => {
   sequelize.addModels(V0_FEED_MODELS);
-  sequelize.addModels(V0_USER_MODELS);
   console.debug("Initialize database connection...");
   await sequelize.sync();
 };
