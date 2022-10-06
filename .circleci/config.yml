@@ -1,0 +1,50 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.0.2
+jobs:
+  build:
+    docker:
+      - image: cimg/node:18.9.1
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - setup_remote_docker:
+          version: 20.10.14
+      - node/install
+      - checkout
+      - run:
+          name: Print node version
+          command: |
+            node --version
+      - run:
+          name: Print Docker version
+          command: |
+            docker --version
+      - run:
+          name: Print Enviroment variables
+          command: |
+            echo $DOCKERHUB_USERNAME
+            echo $DOCKERHUB_PASSWORD
+      - run:
+          name: Build docker Images
+          command: |
+            docker-compose -f docker-compose-build.yaml build --parallel
+      - run:
+          name: Log Out and Log in Docker
+          command: |
+            docker logout && docker login -u=$DOCKERHUB_USERNAME -p=$DOCKERHUB_PASSWORD
+      - run:
+          name: Tag Images with Hub
+          command: |
+            docker tag udagram-frontend $DOCKERHUB_USERNAME/udagram-frontend:latest
+            docker tag udagram-api-feed $DOCKERHUB_USERNAME/udagram-api-feed:latest
+            docker tag udagram-api-user $DOCKERHUB_USERNAME/udagram-api-user:latest
+            docker tag udagram-reverseproxy $DOCKERHUB_USERNAME/udagram-reverseproxy:latest
+      - run:
+          name: Push Image to Hub
+          command: |
+            docker push $DOCKERHUB_USERNAME/udagram-frontend
+            docker push $DOCKERHUB_USERNAME/udagram-api-feed
+            docker push $DOCKERHUB_USERNAME/udagram-api-user
+            docker push $DOCKERHUB_USERNAME/udagram-reverseproxy
