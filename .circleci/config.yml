@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Push Image to Hub
           command: |
-            docker push $DOCKERHUB_USERNAME/udagram-frontend
-            docker push $DOCKERHUB_USERNAME/udagram-api-feed
-            docker push $DOCKERHUB_USERNAME/udagram-api-user
-            docker push $DOCKERHUB_USERNAME/udagram-reverseproxy
+            docker push $DOCKERHUB_USERNAME/udagram-frontend:newest
+            docker push $DOCKERHUB_USERNAME/udagram-api-feed:newest
+            docker push $DOCKERHUB_USERNAME/udagram-api-user:newest
+            docker push $DOCKERHUB_USERNAME/udagram-reverseproxy:newest
