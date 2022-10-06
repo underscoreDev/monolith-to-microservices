@@ -37,10 +37,10 @@ jobs:
       - run:
           name: Tag Images with Hub
           command: |
-            docker tag udagram-frontend $DOCKERHUB_USERNAME/udagram-frontend:latest
-            docker tag udagram-api-feed $DOCKERHUB_USERNAME/udagram-api-feed:latest
-            docker tag udagram-api-user $DOCKERHUB_USERNAME/udagram-api-user:latest
-            docker tag udagram-reverseproxy $DOCKERHUB_USERNAME/udagram-reverseproxy:latest
+            docker tag udagram-frontend $DOCKERHUB_USERNAME/udagram-frontend
+            docker tag udagram-api-feed $DOCKERHUB_USERNAME/udagram-api-feed
+            docker tag udagram-api-user $DOCKERHUB_USERNAME/udagram-api-user
+            docker tag udagram-reverseproxy $DOCKERHUB_USERNAME/udagram-reverseproxy
       - run:
           name: Push Image to Hub
           command: |
